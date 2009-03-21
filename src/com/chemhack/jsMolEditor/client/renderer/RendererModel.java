@@ -76,7 +76,6 @@ public class RendererModel {
 
     private Set<Bond> highlightedBonds = new HashSet<Bond>();
 
-
     public int getAtomRadius() {
         return atomRadius;
     }

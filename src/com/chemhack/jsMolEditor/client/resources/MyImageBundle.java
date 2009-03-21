@@ -54,4 +54,16 @@ public interface MyImageBundle extends ImageBundle {
     @Resource("benzeneSmall.png")
     public AbstractImagePrototype benzeneSmall();
 
+    @Resource("hexagonSmall.png")
+    public AbstractImagePrototype hexagonSmall();
+    
+    @Resource("triangleSmall.png")
+    public AbstractImagePrototype triangleSmall();
+
+    @Resource("pentagonSmall.png")
+    public AbstractImagePrototype pentagonSmall();
+
+    @Resource("squareSmall.png")
+    public AbstractImagePrototype squareSmall();
+
 }

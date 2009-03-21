@@ -55,6 +55,8 @@ public class TopToolBox extends HorizontalPanel {
         });
         this.add(pbSave);
 
+        this.add(createSpace());
+
         tbSingleBond = createToggleButton(myImageBundle.singleBondSmall(), "Single Bond");
         tbSingleBond.addClickListener(new ClickListener() {
             public void onClick(Widget sender) {
@@ -83,14 +85,54 @@ public class TopToolBox extends HorizontalPanel {
 
         this.add(createSpace());
 
-        ToggleButton tbHexagon = createToggleButton(myImageBundle.benzeneSmall(), "Hexagon");
+        ToggleButton tbTriangle = createToggleButton(myImageBundle.triangleSmall(), "Triangle");
+        tbTriangle.addClickListener(new ClickListener() {
+            public void onClick(Widget sender) {
+                controller.currentAction = EditorController.EditActions.drawRing;
+                controller.currentRingSize = 3;
+            }
+        });
+        this.add(tbTriangle);
+
+
+        ToggleButton tbSquare = createToggleButton(myImageBundle.squareSmall(), "Square");
+        tbSquare.addClickListener(new ClickListener() {
+            public void onClick(Widget sender) {
+                controller.currentAction = EditorController.EditActions.drawRing;
+                controller.currentRingSize = 4;
+            }
+        });
+        this.add(tbSquare);
+
+
+        ToggleButton tbPentagon = createToggleButton(myImageBundle.pentagonSmall(), "Pentagon");
+        tbPentagon.addClickListener(new ClickListener() {
+            public void onClick(Widget sender) {
+                controller.currentAction = EditorController.EditActions.drawRing;
+                controller.currentRingSize = 5;
+            }
+        });
+        this.add(tbPentagon);
+
+        ToggleButton tbHexagon = createToggleButton(myImageBundle.hexagonSmall(), "Hexagon");
         tbHexagon.addClickListener(new ClickListener() {
+            public void onClick(Widget sender) {
+                controller.currentAction = EditorController.EditActions.drawRing;
+                controller.currentRingSize = 6;
+            }
+        });
+        this.add(tbHexagon);
+
+        ToggleButton tbBenzene = createToggleButton(myImageBundle.benzeneSmall(), "Benzene");
+        tbBenzene.addClickListener(new ClickListener() {
             public void onClick(Widget sender) {
                 controller.currentAction = EditorController.EditActions.drawBenzene;
                 controller.currentRingSize = 6;
             }
         });
-        this.add(tbHexagon);
+        this.add(tbBenzene);
+
+
 
 
 //        tdbBond = new ToggleDropDownButton();
