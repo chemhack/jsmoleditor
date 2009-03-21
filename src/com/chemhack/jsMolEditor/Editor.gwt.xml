@@ -1,0 +1,14 @@
+<module>
+    <inherits name='com.google.gwt.user.User'/>
+    <!--<inherits name="com.google.gwt.user.theme.standard.Standard"/>    -->
+    <!--<inherits name="com.google.gwt.user.theme.standard.StandardResources"/>-->
+    <inherits name="gwt.canvas.gwt-canvas"/>
+    <inherits name='com.google.gwt.json.JSON'/>
+    <inherits name='com.google.gwt.xml.XML'/>    
+    <inherits name="com.google.gwt.junit.JUnit"/>
+
+    <script src="jsmoleditor.js"/>
+   
+    <entry-point class='com.chemhack.jsMolEditor.client.Editor'/>
+
+</module>

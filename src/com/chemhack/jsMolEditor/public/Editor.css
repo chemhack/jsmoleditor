@@ -1,0 +1,137 @@
+.jsmoleditor-toolBoxSeprator{/*¡Æ¡Â¡Ç???*/
+	border-left:1px solid #9cc3f2;
+	border-right:1px solid #FFF;
+	margin:0 5px;
+	width:0px;
+	height:26px;
+	overflow:hidden;
+}
+
+.gwt-DialogBox {/*¡­?¡Â¡Ì?¡®?¡Þ??*/
+    border:1px solid #9cc3f2;
+    background-color: lightblue;
+}
+
+.jsmoleditor-toolButton {
+    margin: 0px;
+	width:16px;
+	height:16px;
+    padding: 4px;
+	text-align:center;
+}
+
+.jsmoleditor-toolButton-up {
+    border: 1px solid #d4e6fc;
+    cursor: pointer;
+    cursor: hand;
+}
+
+.jsmoleditor-toolButton-up-hovering {
+    border: 1px solid;
+    border-color:#e2eefc #a2b0c2 #a2b0c2 #e2eefc;
+    cursor: pointer;
+    cursor: hand;
+}
+
+.jsmoleditor-toolButton-down {
+    background-position: 0 -513px;
+    border: 1px solid;
+    border-color: #a2b0c2 #e2eefc #e2eefc #a2b0c2;
+	background:#f0f6fd;
+    cursor: pointer;
+    cursor: hand;
+}
+
+.jsmoleditor-toolButton-down-hovering {
+    background-position: 0 -513px;
+    border: 1px solid;
+    border-color: #a2b0c2 #e2eefc #e2eefc #a2b0c2;
+	background:#f0f6fd;
+    cursor: pointer;
+    cursor: hand;
+}
+
+.jsmoleditor-toolButton-down-disabled {
+    background-position: 0 -513px;
+    border: 1px inset #ccc;
+    cursor: default;
+    opacity: .5;
+    zoom: 1;
+    filter: alpha(opacity = 40);
+}
+
+.jsmoleditor-topToolBox {
+
+	width:26px;
+    height: 24px;
+    margin: 0px;
+    padding: 2px;
+}
+
+.jsmoleditor-elementToolBox {
+    width: 24px;
+	height:22px;
+	text-align:right;
+    margin: 0px;
+    padding: 2px;
+}
+
+.jsmoleditor-topTooBoxWrapper {
+	border-top:1px solid #9cc3f2;
+	border-left:1px solid #9cc3f2;
+    background-color: #d4e6fc;
+    overflow:hidden;
+}
+
+.jsmoleditor-elementToolBoxWrapper {
+	border-right:1px solid #9cc3f2;
+	border-left:1px solid #9cc3f2;
+    background-color: #d4e6fc;
+    overflow:hidden;
+}
+
+.jsmoleditor-elementToolBox-element {
+    font-size: 16px;
+    margin: 0px;
+    padding: 4px;
+}
+
+.jsmoleditor-elementToolBox-element-C {
+    color: black;
+}
+
+.jsmoleditor-elementToolBox-element-N {
+    color: blue;
+}
+
+.jsmoleditor-elementToolBox-element-O {
+    color: red;
+}
+
+.jsmoleditor-elementToolBox-element-S {
+    color: #b2b200;
+}
+
+.jsmoleditor-elementToolBox-element-F,
+    .jsmoleditor-elementToolBox-element-Cl,
+    .jsmoleditor-elementToolBox-element-Br,
+    .jsmoleditor-elementToolBox-element-I {
+    color: #ff00ff;
+}
+
+.jsmoleditor-statusBar {
+    height: 24px;
+	line-height:24px;
+    margin: 0px;
+    padding: 0px;
+    background-color: #d4e6fc;
+}
+
+.jsmoleditor-statusBar-message {
+    font-size: 12px;
+	font-family:Arial, Helvetica, sans-serif;
+	padding-left:10px;
+}
+
+div#editor1{ margin:20px 50px}
+

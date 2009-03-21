@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/4/trunk/src/com/chemhack/jsMolEditor/client/jre/emulation/java/awt/geom
+END
+Point2D.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/!svn/ver/4/trunk/src/com/chemhack/jsMolEditor/client/jre/emulation/java/awt/geom/Point2D.java
+END
+AffineTransform.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/!svn/ver/4/trunk/src/com/chemhack/jsMolEditor/client/jre/emulation/java/awt/geom/AffineTransform.java
+END
+Dimension.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/!svn/ver/4/trunk/src/com/chemhack/jsMolEditor/client/jre/emulation/java/awt/geom/Dimension.java
+END
+NoninvertibleTransformException.java
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/!svn/ver/4/trunk/src/com/chemhack/jsMolEditor/client/jre/emulation/java/awt/geom/NoninvertibleTransformException.java
+END
+Rectangle2D.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/!svn/ver/4/trunk/src/com/chemhack/jsMolEditor/client/jre/emulation/java/awt/geom/Rectangle2D.java
+END
