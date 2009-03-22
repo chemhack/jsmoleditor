@@ -94,9 +94,6 @@ public class Vector2D {
         double e=Math.cos(-angle);
         double f=Math.sin(-angle);
 
-//        y' = b*cos q - a*sin q
-//        x' = b*sin q + a*cos q
-
         double x1=b*d+a*c;
         double y1=b*c-a*d;
         double x2=b*f+a*e;
