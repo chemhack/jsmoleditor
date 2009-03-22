@@ -46,9 +46,11 @@ public class KeyboardShortCutEventPreview implements EventPreview {
                     case '4':
                     case '5':
                     case '6':
-                        controller.currentAction=EditorController.EditActions.drawRing;
-                        controller.currentRingSize=Integer.parseInt(String.valueOf(keyCode));
-                       break;
+                        controller.selectRingAction(Integer.parseInt(String.valueOf(keyCode)), false);
+                        break;
+                    case '1':  //Benzene
+                        controller.selectRingAction(6, true);
+                        break;
                     case 189: //Key -
                         controller.selectEditAction(EditorController.EditActions.drawSingleBond);
                         break;

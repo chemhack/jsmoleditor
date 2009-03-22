@@ -18,6 +18,11 @@ public class TopToolBox extends HorizontalPanel {
     private ToggleButton tbDoubleBond;
     private ToggleButton tbSingleBond;
     private ToggleButton tbTripleBond;
+    private ToggleButton tbBenzene;
+    private ToggleButton tbHexagon;
+    private ToggleButton tbPentagon;
+    private ToggleButton tbSquare;
+    private ToggleButton tbTriangle;
 
     public TopToolBox(final EditorController controller, ToggleButtonListener toggleButtonListener) {
         super();
@@ -85,7 +90,7 @@ public class TopToolBox extends HorizontalPanel {
 
         this.add(createSpace());
 
-        ToggleButton tbTriangle = createToggleButton(myImageBundle.triangleSmall(), "Triangle");
+        tbTriangle = createToggleButton(myImageBundle.triangleSmall(), "Triangle");
         tbTriangle.addClickListener(new ClickListener() {
             public void onClick(Widget sender) {
                 controller.currentAction = EditorController.EditActions.drawRing;
@@ -95,7 +100,7 @@ public class TopToolBox extends HorizontalPanel {
         this.add(tbTriangle);
 
 
-        ToggleButton tbSquare = createToggleButton(myImageBundle.squareSmall(), "Square");
+        tbSquare = createToggleButton(myImageBundle.squareSmall(), "Square");
         tbSquare.addClickListener(new ClickListener() {
             public void onClick(Widget sender) {
                 controller.currentAction = EditorController.EditActions.drawRing;
@@ -105,7 +110,7 @@ public class TopToolBox extends HorizontalPanel {
         this.add(tbSquare);
 
 
-        ToggleButton tbPentagon = createToggleButton(myImageBundle.pentagonSmall(), "Pentagon");
+        tbPentagon = createToggleButton(myImageBundle.pentagonSmall(), "Pentagon");
         tbPentagon.addClickListener(new ClickListener() {
             public void onClick(Widget sender) {
                 controller.currentAction = EditorController.EditActions.drawRing;
@@ -114,7 +119,7 @@ public class TopToolBox extends HorizontalPanel {
         });
         this.add(tbPentagon);
 
-        ToggleButton tbHexagon = createToggleButton(myImageBundle.hexagonSmall(), "Hexagon");
+        tbHexagon = createToggleButton(myImageBundle.hexagonSmall(), "Hexagon");
         tbHexagon.addClickListener(new ClickListener() {
             public void onClick(Widget sender) {
                 controller.currentAction = EditorController.EditActions.drawRing;
@@ -123,7 +128,7 @@ public class TopToolBox extends HorizontalPanel {
         });
         this.add(tbHexagon);
 
-        ToggleButton tbBenzene = createToggleButton(myImageBundle.benzeneSmall(), "Benzene");
+        tbBenzene = createToggleButton(myImageBundle.benzeneSmall(), "Benzene");
         tbBenzene.addClickListener(new ClickListener() {
             public void onClick(Widget sender) {
                 controller.currentAction = EditorController.EditActions.drawBenzene;
@@ -131,8 +136,6 @@ public class TopToolBox extends HorizontalPanel {
             }
         });
         this.add(tbBenzene);
-
-
 
 
 //        tdbBond = new ToggleDropDownButton();
@@ -277,6 +280,31 @@ public class TopToolBox extends HorizontalPanel {
                 break;
             case drawTrippleBond:
                 toggleButtonListener.onClick(tbTripleBond);
+                break;
+        }
+
+    }
+
+    public void setSelectedAction(EditorController.EditActions action, int ringSize) {
+        switch (action) {
+            case drawRing:
+                switch (ringSize) {
+                    case 3:
+                        toggleButtonListener.onClick(tbTriangle);
+                        break;
+                    case 4:
+                        toggleButtonListener.onClick(tbSquare);
+                        break;
+                    case 5:
+                        toggleButtonListener.onClick(tbPentagon);
+                        break;
+                    case 6:
+                        toggleButtonListener.onClick(tbHexagon);
+                        break;
+                }
+                break;
+            case drawBenzene:
+                toggleButtonListener.onClick(tbBenzene);
                 break;
         }
 

@@ -206,5 +206,12 @@ public class EditorController {
         topToolBox.setSelectedAction(action);
     }
 
+    public void selectRingAction(int ringSize,boolean isBenzene) {
+        this.currentAction = isBenzene?EditActions.drawBenzene:EditActions.drawRing;
+        this.currentRingSize=ringSize;
+        topToolBox.setSelectedAction(isBenzene?EditActions.drawBenzene:EditActions.drawRing,ringSize);
+    }
+
+
 
 }
