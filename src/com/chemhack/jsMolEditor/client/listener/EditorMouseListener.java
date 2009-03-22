@@ -177,13 +177,13 @@ public class EditorMouseListener implements MouseListener, MouseWheelListener {
                         Atom newAtom = controller.getMolecule().addAtom(controller.currentElement, realCord.x, realCord.y, 0);
                     }
                     break;
-//                case drawRing:
-//                    if (isClick) {
-//                        Point2D realCord = controller.graphCordToRealCord(new Point2D(x, y));
-//                        Atom newAtom = controller.getMolecule().addAtom(controller.currentElement, realCord.x, realCord.y, 0);
-//                    }
-//                    break;
-//
+                case drawRing:
+                    if (isClick) {
+                        Point2D realCord = controller.graphCordToRealCord(new Point2D(x, y));
+                        Atom newAtom = controller.getMolecule().addAtom("C", realCord.x, realCord.y, 0);
+                        MoleculePlacer.placeRingOnCurrentAtom(newAtom, controller.getRenderer().getRendererModel().getDefaultBondLength(), controller.currentRingSize, false);  
+                    }
+                    break;
                 default:
                     break;
             }

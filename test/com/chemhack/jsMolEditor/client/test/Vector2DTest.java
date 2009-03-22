@@ -26,9 +26,6 @@
 
 package com.chemhack.jsMolEditor.client.test;
 
-import com.chemhack.jsMolEditor.client.model.Atom;
-import com.chemhack.jsMolEditor.client.model.Molecule;
-import com.chemhack.jsMolEditor.client.model.DefaultMolecule;
 import com.chemhack.jsMolEditor.client.math.Vector2D;
 import com.google.gwt.junit.client.GWTTestCase;
 
@@ -41,7 +38,7 @@ public class Vector2DTest extends GWTTestCase {
     }
     public void testTurn(){
         Vector2D vector1=new Vector2D(6,13);
-        Vector2D[] vectors=vector1.turn(Math.toRadians(60));
+        Vector2D[] vectors=vector1.rotate(Math.toRadians(60));
        assertEquals(vector1.angle(vectors[0]),Math.toRadians(60),0.0001);
         assertEquals(vector1.angle(vectors[1]),Math.toRadians(60),0.0001);
 

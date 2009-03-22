@@ -78,22 +78,34 @@ public class Vector2D {
     }
 
     /**
-     * Return a vector with angle specified turned from this vector and normalized.
+     * Return a vector with angle specified rotated from this vector and normalized.
      *
      * @param angle the angle in radians in the range [0,PI]
      * @return Vector2D with angle specified turned and normalized
      */
 
-    public final Vector2D[] turn(double angle) {
+    public final Vector2D[] rotate(double angle) {
         Vector2D thisClone = new Vector2D(this.x, this.y);
         thisClone.normalize();
         double a=thisClone.x;
         double b=thisClone.y;
-        double e=Math.cos(angle);
-        double x1=(-e*Math.pow(b,2)-Math.pow(Math.pow(a,2)+Math.pow(b*e,2)-Math.pow(e,2),0.5)*b+e)/a;
-        double y1=b*e+Math.pow(Math.pow(a,2)+Math.pow(b*e,2)-Math.pow(e,2),0.5);
-        double x2=(-e*Math.pow(b,2)+Math.pow(Math.pow(a,2)+Math.pow(b*e,2)-Math.pow(e,2),0.5)*b+e)/a;
-        double y2=b*e-Math.pow(Math.pow(a,2)+Math.pow(b*e,2)-Math.pow(e,2),0.5);
+        double c=Math.cos(angle);
+        double d=Math.sin(angle);
+        double e=Math.cos(-angle);
+        double f=Math.sin(-angle);
+
+//        y' = b*cos q - a*sin q
+//        x' = b*sin q + a*cos q
+
+        double x1=b*d+a*c;
+        double y1=b*c-a*d;
+        double x2=b*f+a*e;
+        double y2=b*e-a*f;
+
+//        double x1=(-e*Math.pow(b,2)-Math.pow(Math.pow(a,2)+Math.pow(b*e,2)-Math.pow(e,2),0.5)*b+e)/a;
+//        double y1=b*e+Math.pow(Math.pow(a,2)+Math.pow(b*e,2)-Math.pow(e,2),0.5);
+//        double x2=(-e*Math.pow(b,2)+Math.pow(Math.pow(a,2)+Math.pow(b*e,2)-Math.pow(e,2),0.5)*b+e)/a;
+//        double y2=b*e-Math.pow(Math.pow(a,2)+Math.pow(b*e,2)-Math.pow(e,2),0.5);
 
         return new Vector2D[]{new Vector2D(x1,y1),new Vector2D(x2,y2)};
     }
@@ -109,5 +121,4 @@ public class Vector2D {
     }
 
 
-    
 }

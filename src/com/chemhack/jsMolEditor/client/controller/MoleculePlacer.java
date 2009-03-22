@@ -21,8 +21,8 @@ public class MoleculePlacer {
                 Atom onlyNeighbor = targetAtom.getNeighbors()[0];
 
                 Vector2D onlyVector = new Vector2D(onlyNeighbor.getX() - targetAtom.getX(), onlyNeighbor.getY() - targetAtom.getY());
-                Vector2D newVector1 = onlyVector.turn(Math.toRadians(120))[0];
-                Vector2D newVector2 = onlyVector.turn(Math.toRadians(120))[1];
+                Vector2D newVector1 = onlyVector.rotate(Math.toRadians(120))[0];
+                Vector2D newVector2 = onlyVector.rotate(Math.toRadians(120))[1];
                 Point2D moleculeCenter = GeometryTools.getGeometryCenter(molecule);
                 Vector2D compareVector = new Vector2D(moleculeCenter.x - targetAtom.getX(), moleculeCenter.y - targetAtom.getY());
 
@@ -81,21 +81,36 @@ public class MoleculePlacer {
         return newPlace;
     }
 
-    public static void placeRingOnCurrentBond(Bond currentBond, double bondLength, int ringSize, boolean isBenzene){
-          
-//        Vector2D vector = new Vector2D(targetAtom.getX() - lastAtom.getX(), targetAtom.getY() - lastAtom.getY());
-//        doRingPlace(bondLength, ringSize, isBenzene, targetAtom.getMolecule(), vector, targetAtom);
+    public static void placeRingOnCurrentBond(Bond currentBond, double bondLength, int ringSize, boolean isBenzene) {
+
     }
 
+//    public static void placeRingOnWhiteSpace(double x,double y,Molecule molecule, double bondLength, int ringSize, boolean isBenzene) {
+//        Vector2D vector = new Vector2D(0, bondLength);
+//        Atom targetAtom=molecule.addAtom("C",x,y,0);
+//        System.out.println(vector);
+//        System.out.println(targetAtom.getX());
+//        System.out.println(targetAtom.getY());
+//        doRingPlace(bondLength, ringSize, isBenzene, molecule, vector, targetAtom);
 
-    public static void placeRingOnCurrentAtom(Atom targetAtom, double bondLength, int ringSize, boolean isBenzene,Atom lastAtom){
-        Vector2D vector = new Vector2D(targetAtom.getX() - lastAtom.getX(), targetAtom.getY() - lastAtom.getY());
+    //    }
+
+    public static void placeRingOnCurrentAtom(Atom targetAtom, double bondLength, int ringSize, boolean isBenzene) {
+        Vector2D vector = new Vector2D(0, -1);
         doRingPlace(bondLength, ringSize, isBenzene, targetAtom.getMolecule(), vector, targetAtom);
     }
+
+
+    public static void placeRingOnCurrentAtom(Atom targetAtom, double bondLength, int ringSize, boolean isBenzene, Atom lastAtom) {
+        Vector2D vector = new Vector2D(targetAtom.getX() - lastAtom.getX(), targetAtom.getY() - lastAtom.getY());
+
+        doRingPlace(bondLength, ringSize, isBenzene, targetAtom.getMolecule(), vector, targetAtom);
+    }
+
     public static Atom placeNewRing(Atom targetAtom, double bondLength, int ringSize, boolean isBenzene) {
         Point2D firtAtomPlace = calcNewAtomPlace(targetAtom, bondLength);
         Point2D targetAtomPlace = new Point2D(targetAtom.getX(), targetAtom.getY());
-        Molecule molecule = targetAtom.getMolecule();      
+        Molecule molecule = targetAtom.getMolecule();
         Vector2D vector = new Vector2D(firtAtomPlace.x - targetAtomPlace.x, firtAtomPlace.y - targetAtomPlace.y);
         Atom firstRingAtom = molecule.addAtom("C", firtAtomPlace.x, firtAtomPlace.y, 0);
 
@@ -109,25 +124,26 @@ public class MoleculePlacer {
         vector.setLength(radical);
         Point2D ringCenter = new Point2D(firstRingAtom.getX() + vector.x, firstRingAtom.getY() + vector.y);
         Vector2D reverseVector = new Vector2D(-vector.x, -vector.y);
-        int bondOrder=1;
+        int bondOrder = 1;
         Atom lastAtom = firstRingAtom;
         for (int i = 1; i < ringSize; i++) {
             double angle = i * ((double) 360) / ringSize;
             Vector2D turnedVector;
             if (angle < 180) {
-                turnedVector = reverseVector.turn(Math.toRadians(angle))[0];
+                turnedVector = reverseVector.rotate(Math.toRadians(angle))[0];
             } else if (angle > 180) {
-                turnedVector = reverseVector.turn(Math.toRadians(360 - angle))[1];
+                turnedVector = reverseVector.rotate(Math.toRadians(360 - angle))[1];
             } else {
                 turnedVector = vector;
             }
+            
             turnedVector.setLength(radical);
 
             Atom newAtom = molecule.addAtom("C", ringCenter.x + turnedVector.x, ringCenter.y + turnedVector.y, 0);
             molecule.connect(lastAtom, newAtom, bondOrder);
             lastAtom = newAtom;
-            if(isBenzene){
-               bondOrder=bondOrder==1?2:1;
+            if (isBenzene) {
+                bondOrder = bondOrder == 1 ? 2 : 1;
             }
         }
         molecule.connect(lastAtom, firstRingAtom, bondOrder);
