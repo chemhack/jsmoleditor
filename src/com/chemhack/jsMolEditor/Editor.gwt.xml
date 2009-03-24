@@ -8,7 +8,8 @@
     <inherits name="com.google.gwt.junit.JUnit"/>
 
     <script src="jsmoleditor.js"/>
-   
+    <stylesheet src="Editor.css"/>
+    
     <entry-point class='com.chemhack.jsMolEditor.client.Editor'/>
 
 </module>
