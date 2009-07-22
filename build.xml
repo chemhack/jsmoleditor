@@ -1,0 +1,154 @@
+<?xml version="1.0"?>
+<project name="jsMolEditor" default="all" basedir=".">
+
+    <!--Change this to your path of gwt-->
+    <property name="gwt.home" value="/Applications/gwt-mac-1.5.3"/>
+
+    <property name="gwt.module" value="com.chemhack.jsMolEditor.Editor"/>
+    <property name="debug" value="off"/>
+    <property name="deprecation" value="on"/>
+    <property name="optimization" value="on"/>
+
+    <path id="classpath.base">
+        <pathelement path="src"/>
+        <pathelement path="test"/>
+        <fileset dir="lib">
+            <include name="**/*.jar"/>
+        </fileset>
+        <fileset dir="${gwt.home}">
+            <include name="**/*.jar"/>
+        </fileset>
+    </path>
+
+    <path id="classpath.test">
+        <pathelement path="dist/java-output"/>
+        <path refid="classpath.base"/>
+    </path>
+
+    <target name="clean" description="Cleans Output">
+        <delete dir="dist"/>
+    </target>
+
+    <target name="cleanTempFiles" description="Cleans Output">
+        <delete dir="dist/gwt-output"/>
+        <delete dir="dist/java-output"/>
+    </target>
+
+    <target name="mkdir" description="Make Necessary Directory">
+        <mkdir dir="dist"/>
+    </target>
+
+    <target name="deploy" depends="gwt-compile" description="Compile JavaScript library">
+        <mkdir dir="dist/deploy/js"/>
+        <copy todir="dist/deploy/js">
+            <fileset dir="dist/gwt-output/${gwt.module}">
+                <include name="**/*.*"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="demo" description="Compile JavaScript library">
+        <mkdir dir="dist/demo"/>
+        <copy todir="dist/demo">
+            <fileset dir="demo">
+                <include name="**/*.*"/>
+            </fileset>
+        </copy>
+        <copy todir="dist/demo/js">
+            <fileset dir="dist/gwt-output/${gwt.module}">
+                <include name="**/*.*"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="dist" description="Distribute Source Code">
+        <mkdir dir="dist/source/src"/>
+        <mkdir dir="dist/source/test"/>
+        <copy todir="dist/source/src">
+            <fileset dir="src">
+                <include name="**/*.*"/>
+            </fileset>
+        </copy>
+        <copy todir="dist/source/test">
+            <fileset dir="test">
+                <include name="**/*.*"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="all" description="Make Necessary Directory">
+        <antcall target="clean"/>
+        <antcall target="deploy"/>
+        <antcall target="demo"/>
+        <antcall target="dist"/>
+        <antcall target="test"/>
+        <antcall target="cleanTempFiles"/>
+    </target>
+
+    <target id="checkPlatforms" name="checkPlatforms">
+        <condition property="isMacOsX">
+            <and>
+                <os family="mac"/>
+                <os family="unix"/>
+            </and>
+        </condition>
+    </target>
+
+    <target name="javac-compile" description="Invoke javac">
+        <mkdir dir="dist/java-output"/>
+        <javac srcdir="src:test" destdir="dist/java-output/" optimize="${optimization}" debug="${debug}"
+               deprecation="${deprecation}">
+            <classpath refid="classpath.base"/>
+        </javac>
+    </target>
+
+    <target name="test" depends="javac-compile,checkPlatforms" description="Run Unit Tests">
+        <mkdir dir="dist/test/xml"/>
+        <antcall target="test-normal"/>
+        <antcall target="test-mac"/>
+    </target>
+
+    <target name="test-mac" description="Run Unit Tests-MACOS" if="isMacOsX">
+        <echo message="Starting Unit Test in Mac OS X Mode..."/>
+        <junit printsummary="yes" haltonfailure="no" fork="yes" forkMode="perBatch" maxmemory="256m">
+            <classpath refid="classpath.test"/>
+            <batchtest todir="dist/test/xml">
+              <fileset dir="dist/java-output" includes="**/client/test/*.class" />
+            </batchtest>
+            <formatter type="xml"/>
+            <jvmarg line="-XstartOnFirstThread"/>
+        </junit>
+        <junitreport toDir="dist/test">
+          <fileset dir="dist/test/xml"/>
+          <report format="frames" todir="dist/test"/>
+        </junitreport>
+    </target>
+
+    <target name="test-normal" description="Run Unit Tests" unless="isMacOsX">
+        <echo message="Starting Unit Test..."/>
+        <junit printsummary="yes" haltonfailure="no" fork="yes" forkMode="perBatch" maxmemory="256m">
+            <classpath refid="classpath.test"/>
+            <batchtest todir="dist/test/xml">
+              <fileset dir="dist/java-output" includes="**/client/test/*.class" />
+            </batchtest>
+            <formatter type="xml"/>
+        </junit>
+        <junitreport toDir="dist/test">
+          <fileset dir="dist/test/xml"/>
+          <report format="frames" todir="dist/test"/>
+        </junitreport>
+    </target>
+    <target name="gwt-compile" description="Invoke GWT Compiler">
+        <mkdir dir="dist/gwt-output"/>
+        <echo message="Invoking GWT Compiler"/>
+        <java classname="com.google.gwt.dev.GWTCompiler" fork="true">
+            <classpath refid="classpath.base"/>
+            <jvmarg value="-Xmx512m"/>
+            <jvmarg value="-Xms256m"/>
+            <arg value="-out"/>
+            <arg value="dist/gwt-output"/>
+            <arg value="${gwt.module}"/>
+        </java>
+    </target>
+
+</project>

@@ -15,6 +15,9 @@ public class CanvasRenderer {
     ExtendedCanvas canvas;
     CordTransformer transformer;
 
+    public CanvasRenderer(ExtendedCanvas canvas) {
+        this(null,canvas);
+    }
     public CanvasRenderer(EditorController controller, ExtendedCanvas canvas) {
         this.controller = controller;
         this.canvas = canvas;

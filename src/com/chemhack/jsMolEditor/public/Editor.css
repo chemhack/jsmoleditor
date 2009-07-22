@@ -1,4 +1,4 @@
-.jsmoleditor-toolBoxSeprator{/*¡Æ¡Â¡Ç???*/
+.jsmoleditor-toolBoxSeprator{
 	border-left:1px solid #9cc3f2;
 	border-right:1px solid #FFF;
 	margin:0 5px;
@@ -7,7 +7,7 @@
 	overflow:hidden;
 }
 
-.gwt-DialogBox {/*¡­?¡Â¡Ì?¡®?¡Þ??*/
+.gwt-DialogBox {
     border:1px solid #9cc3f2;
     background-color: lightblue;
 }
@@ -132,6 +132,4 @@
 	font-family:Arial, Helvetica, sans-serif;
 	padding-left:10px;
 }
-
-div#editor1{ margin:20px 50px}
 
