@@ -4,7 +4,7 @@
     <!--Change this to your path of gwt-->
     <property name="gwt.home" value="/Applications/gwt-mac-1.5.3"/>
 
-    <property name="gwt.module" value="com.chemhack.jsMolEditor.Editor"/>
+    <property name="gwt.module" value="com.chemhack.jsMolEditor.Viewer"/>
     <property name="debug" value="off"/>
     <property name="deprecation" value="on"/>
     <property name="optimization" value="on"/>
