@@ -53,6 +53,8 @@ public class MoleculeTest extends GWTTestCase {
         assertEquals(atom, molecule.getAtom(0));
     }
 
+    
+
     public void testItShouldLeavAnAtomWithANullMoleculeWhenDeletingIt() {
         Molecule molecule = new DefaultMolecule();
         Atom atom = molecule.addAtom("C");

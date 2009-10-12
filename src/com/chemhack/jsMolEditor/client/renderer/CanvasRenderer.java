@@ -1,3 +1,24 @@
+/*
+ * ==================================================
+ *  jsMolEditor: JavaScript based molecule strucutre editor
+ * ==================================================
+ * Project Info:  http://chemhack.com/jsmoleditor
+ *
+ * Copyright (C) 2009. Duan Lian
+ *
+ * This library is free software; you can redistribute it and/or modify it under the terms
+ * of the GNU Lesser General Public License as published by the Free Software Foundation;
+ * either version 3 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License along with this
+ * library; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330,
+ * Boston, MA 02111-1307, USA.
+ */
+
 package com.chemhack.jsMolEditor.client.renderer;
 
 import com.chemhack.jsMolEditor.client.model.Molecule;
@@ -7,6 +28,7 @@ import com.chemhack.jsMolEditor.client.jre.emulation.java.awt.geom.Rectangle2D;
 import com.chemhack.jsMolEditor.client.jre.emulation.java.awt.geom.Point2D;
 import com.chemhack.jsMolEditor.client.widget.ExtendedCanvas;
 import com.chemhack.jsMolEditor.client.controller.EditorController;
+import com.chemhack.jsMolEditor.client.renderer.color.BasicColorScheme;
 
 
 public class CanvasRenderer {
@@ -14,15 +36,18 @@ public class CanvasRenderer {
     RendererModel rendererModel;
     ExtendedCanvas canvas;
     CordTransformer transformer;
+    BasicColorScheme colorScheme;
 
     public CanvasRenderer(ExtendedCanvas canvas) {
-        this(null,canvas);
+        this(null, canvas);
     }
+
     public CanvasRenderer(EditorController controller, ExtendedCanvas canvas) {
         this.controller = controller;
         this.canvas = canvas;
         rendererModel = new RendererModel();
-        transformer=new CordTransformer(54,0,0,-54,-12660,8196,3); //Hardcoded default transform.   `
+        colorScheme = new BasicColorScheme();
+        transformer = new CordTransformer(54, 0, 0, -54, -12660, 8196, 3); //Hardcoded default transform.   `
     }
 
 
@@ -46,10 +71,10 @@ public class CanvasRenderer {
         canvas.setLineWidth(rendererModel.getBondWidth());
         for (int i = 0; i < molecule.countBonds(); i++) {
             Bond currentBond = molecule.getBond(i);
-            if(rendererModel.getHighlightedBonds().contains(currentBond)){
-              canvas.setStrokeStyle("red");
-            }else{
-                canvas.setStrokeStyle(rendererModel.getForeColor());                
+            if (rendererModel.getHighlightedBonds().contains(currentBond)) {
+                canvas.setStrokeStyle("red");
+            } else {
+                canvas.setStrokeStyle(rendererModel.getForeColor());
             }
 
             Point2D pointSource = transformer.transform(new Point2D(currentBond.getSource().getX(), currentBond.getSource().getY()), null);
@@ -120,26 +145,21 @@ public class CanvasRenderer {
         double x = point.getX();
         double y = point.getY();
 
-        boolean drawAtomLabel =false;
+        boolean drawAtomLabel = false;
         String symbolText = currentAtom.getSymbol();
-        if(!symbolText.equals("C")){
-           drawAtomLabel=true; 
-        }else if(currentAtom.countNeighbors()==0){
-           drawAtomLabel=true;
-        }else if(currentAtom.getCharge()!=0){
-           drawAtomLabel=true;
+        if (!symbolText.equals("C")) {
+            drawAtomLabel = true;
+        } else if (currentAtom.countNeighbors() == 0) {
+            drawAtomLabel = true;
+        } else if (currentAtom.getCharge() != 0) {
+            drawAtomLabel = true;
         }
 
 
-        String fontColor = rendererModel.getForeColor();
-        if (symbolText.equals("N")) {
-            fontColor = "blue";
-        } else if (symbolText.equals("O")) {
-            fontColor = "red";
-        }                                                  
+        String fontColor = colorScheme.getColor(symbolText);
 
         boolean highlighted = rendererModel.getHighlightedAtoms().contains(currentAtom);
-        if(drawAtomLabel|| highlighted){
+        if (drawAtomLabel || highlighted) {
             canvas.save();
             if (highlighted) {
                 canvas.setFillStyle(rendererModel.getSelectedAtomBackColor());
@@ -147,25 +167,25 @@ public class CanvasRenderer {
                 canvas.setFillStyle(rendererModel.getBackColor());
             }
 
-            double symbolFontSize=12;
-            double chargeFontSize=symbolFontSize*0.6;
+            double symbolFontSize = 12;
+            double chargeFontSize = symbolFontSize * 0.6;
 
-            double radius=symbolFontSize/2*1.414;
+            double radius = symbolFontSize / 2 * 1.414;
 
 //            currentAtom.setCharge(1);
-            String chargeText="";
-            if(currentAtom.getCharge()!=0){
-                if(currentAtom.getCharge()==1)chargeText="+";
-                else if(currentAtom.getCharge()==-1)chargeText="-";
-                else if(currentAtom.getCharge()>0)chargeText=currentAtom.getCharge()+"+";
-                else if(currentAtom.getCharge()<0)chargeText=Math.abs(currentAtom.getCharge())+"-";
-                radius+=5;
+            String chargeText = "";
+            if (currentAtom.getCharge() != 0) {
+                if (currentAtom.getCharge() == 1) chargeText = "+";
+                else if (currentAtom.getCharge() == -1) chargeText = "-";
+                else if (currentAtom.getCharge() > 0) chargeText = currentAtom.getCharge() + "+";
+                else if (currentAtom.getCharge() < 0) chargeText = Math.abs(currentAtom.getCharge()) + "-";
+                radius += 5;
             }
 
             double textWidth = canvas.measure(symbolText, symbolFontSize);
-            
+
             canvas.beginPath();
-            canvas.rect(x - textWidth / 2,y - symbolFontSize / 2,textWidth,symbolFontSize);
+            canvas.rect(x - textWidth / 2, y - symbolFontSize / 2, textWidth, symbolFontSize);
 //          canvas.arc(x, y, radius, 0, Math.PI * 2, true);
             canvas.fill();
 
@@ -176,12 +196,12 @@ public class CanvasRenderer {
 
             canvas.drawText(symbolText, x - textWidth / 2, y - symbolFontSize / 2, symbolFontSize);
 
-            if(!chargeText.equals("")){
+            if (!chargeText.equals("")) {
                 canvas.drawText(chargeText, x + textWidth / 2, y - symbolFontSize, chargeFontSize);
             }
-            
+
 //          canvas.drawTextCenter(currentAtom.getSymbol(), x, y, fontSize);
-            
+
 
             canvas.restore();
         }
