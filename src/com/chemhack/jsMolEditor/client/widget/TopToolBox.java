@@ -24,7 +24,7 @@ public class TopToolBox extends HorizontalPanel {
     private ToggleButton tbSquare;
     private ToggleButton tbTriangle;
 
-    public TopToolBox(final EditorController controller, ToggleButtonListener toggleButtonListener) {
+    public TopToolBox(final EditorController controller, final ToggleButtonListener toggleButtonListener) {
         super();
         this.toggleButtonListener = toggleButtonListener;
 
@@ -65,7 +65,9 @@ public class TopToolBox extends HorizontalPanel {
         tbSingleBond = createToggleButton(myImageBundle.singleBondSmall(), "Single Bond");
         tbSingleBond.addClickListener(new ClickListener() {
             public void onClick(Widget sender) {
-                controller.currentAction = EditorController.EditActions.drawSingleBond;
+                controller.selectElement("C");
+                toggleButtonListener.onClick(sender);
+                controller.currentAction = EditorController.EditActions.drawSingleBond;                
             }
         });
         tbSingleBond.setDown(true);
@@ -74,6 +76,8 @@ public class TopToolBox extends HorizontalPanel {
         tbDoubleBond = createToggleButton(myImageBundle.doubleBondSmall(), "Double Bond");
         tbDoubleBond.addClickListener(new ClickListener() {
             public void onClick(Widget sender) {
+                controller.selectElement("C");
+                toggleButtonListener.onClick(sender);
                 controller.currentAction = EditorController.EditActions.drawDoubleBond;
             }
         });
@@ -82,7 +86,9 @@ public class TopToolBox extends HorizontalPanel {
         tbTripleBond = createToggleButton(myImageBundle.tripleBondSmall(), "Triple Bond");
         tbTripleBond.addClickListener(new ClickListener() {
             public void onClick(Widget sender) {
-                controller.currentAction = EditorController.EditActions.drawTrippleBond;
+                controller.selectElement("C");
+                toggleButtonListener.onClick(sender);                
+                controller.currentAction = EditorController.EditActions.drawTrippleBond;                
             }
         });
         this.add(tbTripleBond);
